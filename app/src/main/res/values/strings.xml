@@ -1,11 +1,48 @@
 <resources>
-    <string name="app_name">MobileDcares</string>
+    <string name="app_name">OVPDCARES</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
+    <string name="search_title">Search</string>
+
+    <string name="user_email">Email: </string>
+    <string name="user_password">Password: </string>
+    <string name="login">Login</string>
 
     <string name="no_entries">No entries found!</string>
-    <string name="title_activity_project_list">ProjectList</string>
-    <string name="title_activity_project_detail">ProjectDetailActivity</string>
+    <string name="title_activity_project_list">Project List</string>
+    <string name="title_activity_project_detail">Project Details</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="project_name">Project Name: </string>
+    <string name="project_code">Project Code: </string>
+    <string name="description">Description: </string>
+    <string name="expected_outcome">Expected Outcome: </string>
+    <string name="end_user">End User/s: </string>
+    <string name="updated_at">Updated At: </string>
+    <string name="completed_by">Completed By: </string>
+    <string name="status">Status: </string>
+    <string name="classification">Classification: </string>
+    <string name="remarks">Remarks: </string>
+    <string name="percent_accomplishment">Percent Accomplishment: </string>
+    <string name="percent_accomplishment_by">Percent Accomplishment By: </string>
+    <string name="bidding_contractor">Contractor/s: </string>
+    <string name="bidding_number">Number of Biddings: </string>
+    <string name="bidding_award">Date of Notice of Award: </string>
+    <string name="bidding_proceed">Date of Notice to Proceed: </string>
+    <string name="bidding_period">Period Between NoA and NtP (in Calendar Days): </string>
+    <string name="financial_budget">Budget: </string>
+    <string name="financial_contract_price">Contract Price: </string>
+    <string name="financial_actual_cost">Actual Cost: </string>
+    <string name="financial_source">Source of Funds: </string>
+    <string name="financial_variation">Variation Order: </string>
+    <string name="timeline_target_start">Target Start Date: </string>
+    <string name="timeline_target_end">Target End Date: </string>
+    <string name="timeline_actual_start">Actual Start Date: </string>
+    <string name="timeline_actual_end">Actual End Date: </string>
+    <string name="timeline_duration">Project Duration (in Calendar Days): </string>
+    <string name="timeline_extension">Project Extension (in Calendar Days): </string>
+    <string name="project_component">Project Components: </string>
+    <string name="project_phase">Project Phases: </string>
 </resources>

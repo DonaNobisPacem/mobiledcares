@@ -1,7 +1,9 @@
 package com.example.donanobispacem.mobiledcares;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,49 +36,65 @@ public class ProjectListActivity extends AppCompatActivity {
     private String university_name;
     private ProjectListAdapter adapter;
     private String url;
+    private String userToken;
+    private String userId;
+    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_list);
 
-        Intent i = getIntent();
-        university_id = i.getIntExtra( TAG_ID, 0 );
-        university_name = i.getStringExtra(TAG_UNIVERSITY_NAME);
+        mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+    }
 
-        url = "http://52.74.232.161/api/1/universities/" + String.valueOf(university_id);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle( university_name + " Project List");
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        adapter = new ProjectListAdapter(new ArrayList<ProjectList>(), this);
-        final ListView project_list = (ListView) findViewById(R.id.project_list);
-        project_list.setAdapter( adapter );
-        project_list.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> parent, View v,
-                                            int position, long id) {
-                        Toast.makeText(ProjectListActivity.this,
-                                "You Clicked at " + adapter.getProject(+position).getProjectName(),
-                                Toast.LENGTH_SHORT).show();
-                        /*
-                        Intent i = new Intent(v.getContext(), ProjectListActivity.class);
-                        i.putExtra(TAG_ID, adapter.getUniversity(+position).getID());
-                        i.putExtra(TAG_NAME, adapter.getUniversity(+position).getUniversityName());
-                        startActivity(i);
-                        */
+        if (mPreferences.contains("AuthToken") && mPreferences.contains("UserID")) {
+
+            Intent i = getIntent();
+            university_id = i.getIntExtra( TAG_ID, 0 );
+            university_name = i.getStringExtra(TAG_UNIVERSITY_NAME);
+
+            url = "http://52.74.232.161/api/1/universities/" + String.valueOf(university_id);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle( university_name + " Project List");
+
+            adapter = new ProjectListAdapter(new ArrayList<ProjectList>(), this);
+            final ListView project_list = (ListView) findViewById(R.id.list);
+            project_list.setAdapter(adapter);
+            project_list.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View v,
+                                                int position, long id) {
+//                        Toast.makeText(ProjectListActivity.this,
+//                                "You Clicked at " + adapter.getProject(+position).getProjectName(),
+//                                Toast.LENGTH_SHORT).show();
+
+                            Intent i = new Intent(v.getContext(), ProjectDetailActivity.class);
+                            i.putExtra(TAG_ID, adapter.getProject(+position).getID());
+                            i.putExtra(TAG_PROJECT_NAME, adapter.getProject(+position).getProjectName());
+                            startActivity(i);
+                        }
                     }
-                }
-        );
+            );
 
-        new CallAPI().execute(url);
+            userToken = mPreferences.getString("AuthToken", "");
+            userId = mPreferences.getString("UserID", "");
+            new CallAPI().execute(url, userToken, userId );
 
-
+        } else {
+            Intent intent = new Intent(ProjectListActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 0);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_project_list, menu);
+        getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
 
@@ -89,7 +107,7 @@ public class ProjectListActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            new CallAPI().execute(url);
+            new CallAPI().execute(url, userToken, userId );
             return true;
         }
 
@@ -115,8 +133,15 @@ public class ProjectListActivity extends AppCompatActivity {
 
             try {
                 URL u = new URL(params[0]);
+                String userToken = new String(params[1]);
+                String userId = new String(params[2]);
+
+                String basicAuth = "Token token=\"" + userToken + "\", user_id=\"" + userId + "\"";
+
                 HttpURLConnection conn = (HttpURLConnection) u.openConnection();
                 conn.setRequestMethod("GET");
+                conn.setRequestProperty("Authorization", basicAuth);
+
                 conn.connect();
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb = new StringBuilder();

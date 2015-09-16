@@ -1,7 +1,9 @@
 package com.example.donanobispacem.mobiledcares;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,35 +30,54 @@ public class UniversitiesActivity extends AppCompatActivity {
     private static final String TAG_NAME = "university_name";
     private static final String TAG_CODE = "university_code";
     private UniversityAdapter adapter;
-    private String url = "http://52.74.232.161/api/1/universities";
+    private String url;
+    private String userToken;
+    private String userId;
+    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_universities);
 
-        getSupportActionBar().setTitle("Universities");
+        mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
 
-        adapter = new UniversityAdapter(new ArrayList<University>(), this);
-        final ListView university_list = (ListView) findViewById(R.id.university_list);
-        university_list.setAdapter( adapter );
-        university_list.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id)
-                    {
-                        //Toast.makeText(UniversitiesActivity.this,
-                        //        "You Clicked at " + adapter.getUniversity(+position).getUniversityName(),
-                        //        Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(v.getContext(), ProjectListActivity.class);
-                        i.putExtra(TAG_ID, adapter.getUniversity(+position).getID());
-                        i.putExtra(TAG_NAME, adapter.getUniversity(+position).getUniversityName());
-                        startActivity(i);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mPreferences.contains("AuthToken") && mPreferences.contains("UserID")) {
+            Constants constant = new Constants();
+            url = constant.getUrl() + "/universities";
+            getSupportActionBar().setTitle("Universities");
+
+            adapter = new UniversityAdapter(new ArrayList<University>(), this);
+            final ListView university_list = (ListView) findViewById(R.id.list);
+            university_list.setAdapter( adapter );
+            university_list.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View v,
+                                                int position, long id) {
+                            //Toast.makeText(UniversitiesActivity.this,
+                            //        "You Clicked at " + adapter.getUniversity(+position).getUniversityName(),
+                            //        Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(v.getContext(), ProjectListActivity.class);
+                            i.putExtra(TAG_ID, adapter.getUniversity(+position).getID());
+                            i.putExtra(TAG_NAME, adapter.getUniversity(+position).getUniversityName());
+                            startActivity(i);
+                        }
                     }
-                }
-        );
+            );
 
-        new CallAPI().execute(url);
+            userToken = mPreferences.getString("AuthToken", "");
+            userId = mPreferences.getString("UserID", "");
+            new CallAPI().execute(url, userToken, userId );
+        } else {
+            Intent intent = new Intent(UniversitiesActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 0);
+        }
     }
 
     @Override
@@ -75,7 +96,7 @@ public class UniversitiesActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            new CallAPI().execute(url);
+            new CallAPI().execute(url, userToken, userId );
             return true;
         }
 
@@ -101,9 +122,14 @@ public class UniversitiesActivity extends AppCompatActivity {
 
             try {
                 URL u = new URL(params[0]);
+                String userToken = new String(params[1]);
+                String userId = new String(params[2]);
+
+                String basicAuth = "Token token=\"" + userToken + "\", user_id=\"" + userId + "\"";
 
                 HttpURLConnection conn = (HttpURLConnection) u.openConnection();
                 conn.setRequestMethod("GET");
+                conn.setRequestProperty("Authorization", basicAuth);
 
                 conn.connect();
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
