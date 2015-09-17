@@ -4,4 +4,9 @@
     tools:context="com.example.donanobispacem.mobiledcares.ProjectList">
     <item android:id="@+id/action_refresh" android:title="@string/action_refresh"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/search"
+        android:title="@string/search_title"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>

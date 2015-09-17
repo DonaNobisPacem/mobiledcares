@@ -68,7 +68,7 @@ public class FinancialFragment extends Fragment {
     private String combineSource( String source1, ArrayList<String> source2 ){
         String string1 = source1 + "\n";
         String string2 = "";
-        String result = new String();
+        String result;
 
         if( source2.size() > 0 ) {
             for (int i = 0; i < source2.size(); i++) {

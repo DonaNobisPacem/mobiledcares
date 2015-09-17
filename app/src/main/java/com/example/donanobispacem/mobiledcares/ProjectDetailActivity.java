@@ -1,6 +1,5 @@
 package com.example.donanobispacem.mobiledcares;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +21,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProjectDetailActivity extends AppCompatActivity {
 
@@ -116,7 +110,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project_detail, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -204,7 +198,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
             Project project = new Project();
 
-            Log.e("<<<LOG>>>", "STEP1");
             project.setID(Integer.parseInt(_idString));
             project.setProjectName(obj.getString(TAG_PROJECT_NAME));
             project.setProjectCode(obj.getString(TAG_PROJECT_CODE));
@@ -237,7 +230,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
             project.setTimelineExtension(obj.getString(TAG_TIMELINE_EXTENSION));
             project.setTimelineRemarks(obj.getString(TAG_TIMELINE_REMARKS));
 
-            Log.e("<<<LOG>>>", "STEP2");
             ArrayList<String> fund_source = new ArrayList<>();
             JSONArray jArrFS = obj.getJSONArray(TAG_FUND_SOURCES);
             for (int i=0; i < jArrFS.length(); i++) {
@@ -245,7 +237,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
             }
             project.setFundSource( fund_source );
 
-            Log.e("<<<LOG>>>", "STEP3");
             ArrayList<String> components = new ArrayList<>();
             JSONArray jArrComp = obj.getJSONArray(TAG_PROJECT_COMPONENTS);
             for (int i=0; i < jArrComp.length(); i++) {
@@ -253,7 +244,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
             }
             project.setComponents( components );
 
-            Log.e("<<<LOG>>>", "STEP4");
             ArrayList<String> phases = new ArrayList<>();
             JSONArray jArrPhase = obj.getJSONArray(TAG_PROJECT_PHASES);
             for (int i=0; i < jArrPhase.length(); i++) {
