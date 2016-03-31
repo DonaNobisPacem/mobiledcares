@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,8 @@ public class FinancialFragment extends Fragment {
     private static final String TAG_FINANCIAL_SOURCE = "financial_source";
     private static final String TAG_FINANCIAL_VARIATION = "financial_variation";
     private static final String TAG_FINANCIAL_REMARKS = "financial_remarks";
-    private static final String TAG_FUND_SOURCES = "fund_sources";
+    private static final String TAG_FUND_SOURCE = "funds";
+    private static final String TAG_FUND_SOURCE_BUDGET = "funds_budget";
 
     private String financial_budget;
     private String financial_contract_price;
@@ -29,6 +31,7 @@ public class FinancialFragment extends Fragment {
     private String financial_variation;
     private String financial_remarks;
     ArrayList<String> fund_source = new ArrayList<>();
+    ArrayList<String> fund_source_budget = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,8 @@ public class FinancialFragment extends Fragment {
         financial_source = getArguments().getString(TAG_FINANCIAL_SOURCE);
         financial_variation = getArguments().getString(TAG_FINANCIAL_VARIATION);
         financial_remarks = getArguments().getString(TAG_FINANCIAL_REMARKS);
-        fund_source = getArguments().getStringArrayList(TAG_FUND_SOURCES);
+        fund_source = getArguments().getStringArrayList(TAG_FUND_SOURCE);
+        fund_source_budget = getArguments().getStringArrayList(TAG_FUND_SOURCE_BUDGET);
     }
 
     @Override
@@ -58,30 +62,28 @@ public class FinancialFragment extends Fragment {
         budgetTextView.setText(financial_budget);
         priceTextView.setText(financial_contract_price);
         costTextView.setText(financial_actual_cost);
-        sourceTextView.setText(combineSource( financial_source, fund_source ));
+        sourceTextView.setText(combineSource( fund_source, fund_source_budget ));
         variationTextView.setText(financial_variation);
         remarksTextView.setText(financial_remarks);
 
         return view;
     }
 
-    private String combineSource( String source1, ArrayList<String> source2 ){
-        String string1 = source1 + "\n";
-        String string2 = "";
-        String result;
+    private String combineSource( ArrayList<String> source1, ArrayList<String> source2 ){
+        String string1;
+        String string2;
+        String result = "";
 
-        if( source2.size() > 0 ) {
-            for (int i = 0; i < source2.size(); i++) {
-                string2 = string2 + source2.get(i);
-                if( i < source2.size() - 1 ) string2 = string2 + "\n";
-            }
+        if( source1.size() == 0 ) return "N/A";
+
+        for( int i = 0; i < source1.size(); i++ ){
+            string1 = source1.get(i);
+            string2 = source2.get(i);
+            result = result + "-" + string1 + "\n--PhP " + string2;
+            if( i < source1.size() - 1 ) result = result + "\n";
         }
-
-        if( source1 != null && !source1.isEmpty() && source2.size() > 0 ) result = string1 + string2;
-        else if( source1 != null && !source1.isEmpty() && source2.size() == 0 ) result = string1;
-        else if( source1 == null || source1.isEmpty() && source2.size() > 0 ) result = string2;
-        else result = "N/A";
 
         return result;
     }
+
 }

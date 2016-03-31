@@ -1,11 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'mobiledcaresKey'
+            keyPassword '6w5nvbdlgc'
+            storeFile file('/home/donanobispacem/keystores/mobiledcares.jks')
+            storePassword '6w5nvbdlgc'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
-        applicationId "com.example.donanobispacem.mobiledcares"
+        applicationId 'com.ovpdcares.donanobispacem.mobiledcares'
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -15,7 +22,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+    }
+    productFlavors {
     }
 }
 

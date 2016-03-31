@@ -73,14 +73,18 @@ public class TimelineFragment extends Fragment {
     private String convertDate( String input ){
         String formatted = new String("N/A");
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy MMMM dd");
-        try {
-            Date date = inputDateFormat.parse(input);
-            formatted = outputDateFormat.format(date);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+        if( input != null && !input.isEmpty() && !input.equals("null") ) {
+            try {
+                Date date = inputDateFormat.parse(input);
+                formatted = outputDateFormat.format(date);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
+
         return formatted;
     }
 
@@ -89,7 +93,7 @@ public class TimelineFragment extends Fragment {
         long diff;
         String output = new String();
 
-        if(d1 != null && !d1.isEmpty() && d2 != null && !d2.isEmpty())
+        if(d1 != null && !d1.equals("null") && !d1.isEmpty() && d2 != null && !d2.equals("null") && !d2.isEmpty())
             try {
                 Date date1 = inputDateFormat.parse(d1);
                 Date date2 = inputDateFormat.parse(d2);

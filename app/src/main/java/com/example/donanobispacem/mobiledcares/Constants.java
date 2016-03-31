@@ -5,7 +5,7 @@ package com.example.donanobispacem.mobiledcares;
  */
 public class Constants {
     private static final String api_version = "1";
-    private static final String url = "http://52.74.232.161/api/";
+    private static final String url = "http://dcares.up-ovpd.ph/api/";
 
     public Constants()
     {}

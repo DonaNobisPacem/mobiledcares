@@ -59,7 +59,9 @@ public class ProjectListActivity extends AppCompatActivity {
             university_id = i.getIntExtra( TAG_ID, 0 );
             university_name = i.getStringExtra(TAG_UNIVERSITY_NAME);
 
-            url = "http://52.74.232.161/api/1/universities/" + String.valueOf(university_id);
+            Constants constant = new Constants();
+            url = constant.getUrl() + "/universities/" + String.valueOf(university_id);
+
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle( university_name + " Project List");
 

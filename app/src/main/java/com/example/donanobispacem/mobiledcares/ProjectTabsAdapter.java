@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 /**
  * Created by donanobispacem on 9/3/15.
@@ -26,7 +27,12 @@ public class ProjectTabsAdapter extends FragmentPagerAdapter {
     private static final String TAG_PERCENT_ACCOMPLISHMENT_BY = "percent_accomplishment_by";
     private static final String TAG_BIDDING_CONTRACTOR = "bidding_contractor";
     private static final String TAG_BIDDING_NUMBER = "bidding_number";
+    private static final String TAG_BIDDING_PREPROCUREMENT = "bidding_preprocurement";
+    private static final String TAG_BIDDING_PREBIDDING = "bidding_prebidding";
+    private static final String TAG_BIDDING_BIDDING = "bidding_bidding";
+    private static final String TAG_BIDDING_POSTQUALI = "bidding_postquali";
     private static final String TAG_BIDDING_AWARD = "bidding_award";
+    private static final String TAG_BIDDING_PURCHASE = "bidding_purchase";
     private static final String TAG_BIDDING_PROCEED = "bidding_proceed";
     private static final String TAG_BIDDING_REMARKS = "bidding_remarks";
     private static final String TAG_FINANCIAL_BUDGET = "financial_budget";
@@ -42,7 +48,8 @@ public class ProjectTabsAdapter extends FragmentPagerAdapter {
     private static final String TAG_TIMELINE_DURATION = "timeline_duration";
     private static final String TAG_TIMELINE_EXTENSION = "timeline_extension";
     private static final String TAG_TIMELINE_REMARKS = "timeline_remarks";
-    private static final String TAG_FUND_SOURCES = "fund_sources";
+    private static final String TAG_FUND_SOURCE = "funds";
+    private static final String TAG_FUND_SOURCE_BUDGET = "funds_budget";
     private static final String TAG_PROJECT_COMPONENTS = "project_components";
     private static final String TAG_PROJECT_PHASES = "project_phases";
 
@@ -89,7 +96,12 @@ public class ProjectTabsAdapter extends FragmentPagerAdapter {
                 Bundle bidArgs = new Bundle();
                 bidArgs.putString(TAG_BIDDING_CONTRACTOR, project.getBiddingContractor());
                 bidArgs.putString(TAG_BIDDING_NUMBER, project.getBiddingNumber());
+                bidArgs.putString(TAG_BIDDING_PREPROCUREMENT, project.getBiddingPreprocurement());
+                bidArgs.putString(TAG_BIDDING_PREBIDDING, project.getBiddingPrebidding());
+                bidArgs.putString(TAG_BIDDING_BIDDING, project.getBiddingBidding());
+                bidArgs.putString(TAG_BIDDING_POSTQUALI, project.getBiddingPostquali());
                 bidArgs.putString(TAG_BIDDING_AWARD, project.getBiddingAward());
+                bidArgs.putString(TAG_BIDDING_PURCHASE, project.getBiddingPurchase());
                 bidArgs.putString(TAG_BIDDING_PROCEED, project.getBiddingProceed());
                 bidArgs.putString(TAG_BIDDING_REMARKS, project.getBiddingRemarks());
 
@@ -104,7 +116,8 @@ public class ProjectTabsAdapter extends FragmentPagerAdapter {
                 finArgs.putString(TAG_FINANCIAL_SOURCE, project.getFinancialSource());
                 finArgs.putString(TAG_FINANCIAL_VARIATION, project.getFinancialVariation());
                 finArgs.putString(TAG_FINANCIAL_REMARKS, project.getFinancialRemarks());
-                finArgs.putStringArrayList(TAG_FUND_SOURCES, project.getFundSource());
+                finArgs.putStringArrayList(TAG_FUND_SOURCE, project.getFundSource());
+                finArgs.putStringArrayList(TAG_FUND_SOURCE_BUDGET, project.getFundSourceBudget());
 
                 FinancialFragment finFragment = new FinancialFragment();
                 finFragment.setArguments( finArgs );

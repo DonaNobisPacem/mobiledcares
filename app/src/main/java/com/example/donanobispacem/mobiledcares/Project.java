@@ -21,17 +21,25 @@ public class Project implements Serializable {
     private String remarks;
     private String percent_accomplishment;
     private String percent_accomplishment_by;
+
     private String bidding_contractor;
     private String bidding_number;
+    private String bidding_preprocurement;
+    private String bidding_prebidding;
+    private String bidding_bidding;
+    private String bidding_postquali;
     private String bidding_award;
+    private String bidding_purchase;
     private String bidding_proceed;
     private String bidding_remarks;
+
     private String financial_budget;
     private String financial_contract_price;
     private String financial_actual_cost;
     private String financial_source;
     private String financial_variation;
     private String financial_remarks;
+
     private String timeline_target_start;
     private String timeline_target_end;
     private String timeline_actual_start;
@@ -39,7 +47,9 @@ public class Project implements Serializable {
     private String timeline_duration;
     private String timeline_extension;
     private String timeline_remarks;
+
     private ArrayList<String> fund_source;
+    private ArrayList<String> fund_source_budget;
     private ArrayList<String> components;
     private ArrayList<String> phases;
 
@@ -60,17 +70,25 @@ public class Project implements Serializable {
     public String getRemarks() { return remarks; }
     public String getPercentAccomplishment() { return percent_accomplishment; }
     public String getPercentAccomplishmentBy() { return percent_accomplishment_by; }
+
     public String getBiddingContractor() { return bidding_contractor; }
     public String getBiddingNumber() { return bidding_number; }
+    public String getBiddingPreprocurement() { return bidding_preprocurement; }
+    public String getBiddingPrebidding() { return bidding_prebidding; }
+    public String getBiddingBidding() { return bidding_bidding; }
+    public String getBiddingPostquali() { return bidding_postquali; }
     public String getBiddingAward() { return bidding_award; }
+    public String getBiddingPurchase() { return bidding_purchase; }
     public String getBiddingProceed() { return bidding_proceed; }
     public String getBiddingRemarks() { return bidding_remarks; }
+
     public String getFinancialBudget() { return financial_budget; }
     public String getFinancialContractPrice() { return financial_contract_price; }
     public String getFinancialActualCost() { return financial_actual_cost; }
     public String getFinancialSource() { return financial_source; }
     public String getFinancialVariation() { return financial_variation; }
     public String getFinancialRemarks() { return financial_remarks; }
+
     public String getTimelineTargetStart() { return timeline_target_start; }
     public String getTimelineTargetEnd() { return timeline_target_end; }
     public String getTimelineActualStart() { return timeline_actual_start; }
@@ -78,7 +96,9 @@ public class Project implements Serializable {
     public String getTimelineDuration() { return timeline_duration; }
     public String getTimelineExtension() { return timeline_extension; }
     public String getTimelineRemarks() { return timeline_remarks; }
+
     public ArrayList<String> getFundSource() { return fund_source; }
+    public ArrayList<String> getFundSourceBudget() { return fund_source_budget; }
     public ArrayList<String> getComponents() { return components; }
     public ArrayList<String> getPhases() { return phases; }
  
@@ -95,17 +115,25 @@ public class Project implements Serializable {
     public void setRemarks( String remarks ) { this.remarks = remarks; }
     public void setPercentAccomplishment( String percent_accomplishment ) { this.percent_accomplishment = percent_accomplishment; }
     public void setPercentAccomplishmentBy( String percent_accomplishment_by ) { this.percent_accomplishment_by = percent_accomplishment_by; }
+
     public void setBiddingContractor( String bidding_contractor ) { this.bidding_contractor = bidding_contractor; }
     public void setBiddingNumber( String bidding_number ) { this.bidding_number = bidding_number; }
+    public void setBiddingPreprocurement( String bidding_preprocurement ) { this.bidding_preprocurement = bidding_preprocurement; }
+    public void setBiddingPrebidding( String bidding_prebidding ) { this.bidding_prebidding = bidding_prebidding; }
+    public void setBiddingBidding( String bidding_bidding ) { this.bidding_bidding = bidding_bidding; }
+    public void setBiddingPostquali( String bidding_postquali ) { this.bidding_postquali = bidding_postquali; }
     public void setBiddingAward( String bidding_award ) { this.bidding_award = bidding_award; }
+    public void setBiddingPurchase( String bidding_purchase ) { this.bidding_purchase = bidding_purchase; }
     public void setBiddingProceed( String bidding_proceed ) { this.bidding_proceed = bidding_proceed; }
     public void setBiddingRemarks( String bidding_remarks ) { this.bidding_remarks = bidding_remarks; }
+
     public void setFinancialBudget( String financial_budget ) { this.financial_budget = financial_budget; }
     public void setFinancialContractPrice( String financial_contract_price ) { this.financial_contract_price = financial_contract_price; }
     public void setFinancialActualCost( String financial_actual_cost ) { this.financial_actual_cost = financial_actual_cost; }
     public void setFinancialSource( String financial_source ) { this.financial_source = financial_source; }
     public void setFinancialVariation( String financial_variation ) { this.financial_variation = financial_variation; }
     public void setFinancialRemarks( String financial_remarks ) { this.financial_remarks = financial_remarks; }
+
     public void setTimelineTargetStart( String timeline_target_start ) { this.timeline_target_start = timeline_target_start; }
     public void setTimelineTargetEnd( String timeline_target_end ) { this.timeline_target_end = timeline_target_end; }
     public void setTimelineActualStart( String timeline_actual_start ) { this.timeline_actual_start = timeline_actual_start; }
@@ -113,7 +141,9 @@ public class Project implements Serializable {
     public void setTimelineDuration( String timeline_duration ) { this.timeline_duration = timeline_duration; }
     public void setTimelineExtension( String timeline_extension ) { this.timeline_extension = timeline_extension; }
     public void setTimelineRemarks( String timeline_remarks ) { this.timeline_remarks = timeline_remarks; }
+
     public void setFundSource( ArrayList<String> fund_source ) { this.fund_source = fund_source; }
+    public void setFundSourceBudget( ArrayList<String> fund_source_budget ) { this.fund_source_budget = fund_source_budget; }
     public void setComponents( ArrayList<String> components ) { this.components = components; }
     public void setPhases( ArrayList<String> phases ) { this.phases = phases; }
 }

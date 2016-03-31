@@ -4,4 +4,6 @@
     tools:context="com.example.donanobispacem.mobiledcares.ProjectDetailActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_refresh"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_signout" android:title="@string/action_signout"
+        android:orderInCategory="200" app:showAsAction="never" />
 </menu>

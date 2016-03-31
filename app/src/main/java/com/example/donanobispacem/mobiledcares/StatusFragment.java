@@ -60,61 +60,73 @@ public class StatusFragment extends Fragment {
     }
 
     private String setClassification( String id ){
-        switch ( Integer.parseInt(id) ) {
-            case 1:
-                return "Construction of New Facility";
-            case 2:
-                return "Road Works and Utilities Connection";
-            case 3:
-                return "Renovation and Rehabilitation";
-            case 4:
-                return "Information and Communication Technology";
-            case 5:
-                return "Maintenance, Upgrading, and Enhancement";
-            case 6:
-                return "Architectural and Schematic Design";
-            case 7:
-                return "Static and Mobile Furniture";
-            case 8:
-                return "Fitout and Interior Design";
-            case 9:
-                return "Equipment and Other Non ICT Peripherals";
-            default:
-                return "Unspecified";
+        if( id != null && !id.equals("null") && !id.isEmpty() ) {
+            switch (Integer.parseInt(id)) {
+                case 1:
+                    return "Construction of New Facility";
+                case 2:
+                    return "Road Works and Utilities Connection";
+                case 3:
+                    return "Renovation and Rehabilitation";
+                case 4:
+                    return "Information and Communication Technology";
+                case 5:
+                    return "Maintenance, Upgrading, and Enhancement";
+                case 6:
+                    return "Architectural and Schematic Design";
+                case 7:
+                    return "Static and Mobile Furniture";
+                case 8:
+                    return "Fitout and Interior Design";
+                case 9:
+                    return "Equipment and Other Non ICT Peripherals";
+                default:
+                    return "Unspecified";
+            }
         }
+        return "Unspecified";
     }
 
     private String setStatus( String id ){
-        switch ( Integer.parseInt(id) ) {
-            case 1:
-                return "Completed";
-            case 2:
-                return "Ongoing";
-            case 3:
-                return "On Hold";
-            case 4:
-                return "Terminated";
-            case 5:
-                return "Proposal Stage";
-            case 6:
-                return "Bidding Stage";
-            default:
-                return "Unspecified";
+        if( id != null && !id.equals("null") && !id.isEmpty() ) {
+            switch (Integer.parseInt(id)) {
+                case 1:
+                    return "Completed";
+                case 2:
+                    return "Ongoing";
+                case 3:
+                    return "On Hold";
+                case 4:
+                    return "Terminated";
+                case 5:
+                    return "Proposal Stage";
+                case 6:
+                    return "Bidding Stage";
+                default:
+                    return "Unspecified";
+            }
         }
+
+        return "Unspecified";
     }
 
     private String convertDate( String input ){
         String formatted = new String("N/A");
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy MMMM dd");
-        try {
-            Date date = inputDateFormat.parse(input);
-            formatted = outputDateFormat.format(date);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+        if( input != null && !input.isEmpty() && !input.equals("null") ) {
+            try {
+                Date date = inputDateFormat.parse(input);
+                formatted = outputDateFormat.format(date);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
+
         return formatted;
     }
+
 
 }

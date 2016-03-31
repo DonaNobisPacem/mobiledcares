@@ -38,17 +38,25 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private static final String TAG_REMARKS = "remarks";
     private static final String TAG_PERCENT_ACCOMPLISHMENT = "percent_accomplishment";
     private static final String TAG_PERCENT_ACCOMPLISHMENT_BY = "percent_accomplishment_by";
+
     private static final String TAG_BIDDING_CONTRACTOR = "bidding_contractor";
     private static final String TAG_BIDDING_NUMBER = "bidding_number";
+    private static final String TAG_BIDDING_PREPROCUREMENT = "bidding_preprocurement";
+    private static final String TAG_BIDDING_PREBIDDING = "bidding_prebidding";
+    private static final String TAG_BIDDING_BIDDING = "bidding_bidding";
+    private static final String TAG_BIDDING_POSTQUALI = "bidding_postquali";
     private static final String TAG_BIDDING_AWARD = "bidding_award";
+    private static final String TAG_BIDDING_PURCHASE = "bidding_purchase";
     private static final String TAG_BIDDING_PROCEED = "bidding_proceed";
     private static final String TAG_BIDDING_REMARKS = "bidding_remarks";
+
     private static final String TAG_FINANCIAL_BUDGET = "financial_budget";
     private static final String TAG_FINANCIAL_CONTRACT_PRICE = "financial_contract_price";
     private static final String TAG_FINANCIAL_ACTUAL_COST = "financial_actual_cost";
     private static final String TAG_FINANCIAL_SOURCE = "financial_source";
     private static final String TAG_FINANCIAL_VARIATION = "financial_variation";
     private static final String TAG_FINANCIAL_REMARKS = "financial_remarks";
+
     private static final String TAG_TIMELINE_TARGET_START = "timeline_target_start";
     private static final String TAG_TIMELINE_TARGET_END = "timeline_target_end";
     private static final String TAG_TIMELINE_ACTUAL_START = "timeline_actual_start";
@@ -56,7 +64,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private static final String TAG_TIMELINE_DURATION = "timeline_duration";
     private static final String TAG_TIMELINE_EXTENSION = "timeline_extension";
     private static final String TAG_TIMELINE_REMARKS = "timeline_remarks";
-    private static final String TAG_FUND_SOURCES = "fund_sources";
+
+    private static final String TAG_FUND_SOURCES = "funds";
     private static final String TAG_PROJECT_COMPONENTS = "project_components";
     private static final String TAG_PROJECT_PHASES = "project_phases";
 
@@ -123,6 +132,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
             new CallAPI().execute(url, userToken, userId );
+            return true;
+        }
+        if (id == R.id.action_signout) {
+            mPreferences.edit().clear().commit();
+            Intent intent = new Intent(ProjectDetailActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 0);
             return true;
         }
 
@@ -211,17 +226,25 @@ public class ProjectDetailActivity extends AppCompatActivity {
             project.setRemarks(obj.getString(TAG_REMARKS));
             project.setPercentAccomplishment(obj.getString(TAG_PERCENT_ACCOMPLISHMENT));
             project.setPercentAccomplishmentBy(obj.getString(TAG_PERCENT_ACCOMPLISHMENT_BY));
+
             project.setBiddingContractor(obj.getString(TAG_BIDDING_CONTRACTOR));
             project.setBiddingNumber(obj.getString(TAG_BIDDING_NUMBER));
+            project.setBiddingPreprocurement(obj.getString(TAG_BIDDING_PREPROCUREMENT));
+            project.setBiddingPrebidding(obj.getString(TAG_BIDDING_PREBIDDING));
+            project.setBiddingBidding(obj.getString(TAG_BIDDING_BIDDING));
+            project.setBiddingPostquali(obj.getString(TAG_BIDDING_POSTQUALI));
             project.setBiddingAward(obj.getString(TAG_BIDDING_AWARD));
+            project.setBiddingPurchase(obj.getString(TAG_BIDDING_PURCHASE));
             project.setBiddingProceed(obj.getString(TAG_BIDDING_PROCEED));
             project.setBiddingRemarks(obj.getString(TAG_BIDDING_REMARKS));
+
             project.setFinancialBudget(obj.getString(TAG_FINANCIAL_BUDGET));
             project.setFinancialContractPrice(obj.getString(TAG_FINANCIAL_CONTRACT_PRICE));
             project.setFinancialActualCost(obj.getString(TAG_FINANCIAL_ACTUAL_COST));
             project.setFinancialSource(obj.getString(TAG_FINANCIAL_SOURCE));
             project.setFinancialVariation(obj.getString(TAG_FINANCIAL_VARIATION));
             project.setFinancialRemarks(obj.getString(TAG_FINANCIAL_REMARKS));
+
             project.setTimelineTargetStart(obj.getString(TAG_TIMELINE_TARGET_START));
             project.setTimelineTargetEnd(obj.getString(TAG_TIMELINE_TARGET_END));
             project.setTimelineActualStart(obj.getString(TAG_TIMELINE_ACTUAL_START));
@@ -230,12 +253,16 @@ public class ProjectDetailActivity extends AppCompatActivity {
             project.setTimelineExtension(obj.getString(TAG_TIMELINE_EXTENSION));
             project.setTimelineRemarks(obj.getString(TAG_TIMELINE_REMARKS));
 
+
             ArrayList<String> fund_source = new ArrayList<>();
+            ArrayList<String> fund_source_budget = new ArrayList<>();
             JSONArray jArrFS = obj.getJSONArray(TAG_FUND_SOURCES);
             for (int i=0; i < jArrFS.length(); i++) {
                 fund_source.add(jArrFS.getJSONObject(i).getString("source_name"));
+                fund_source_budget.add(jArrFS.getJSONObject(i).getString("budget"));
             }
-            project.setFundSource( fund_source );
+            project.setFundSource(fund_source);
+            project.setFundSourceBudget(fund_source_budget);
 
             ArrayList<String> components = new ArrayList<>();
             JSONArray jArrComp = obj.getJSONArray(TAG_PROJECT_COMPONENTS);
